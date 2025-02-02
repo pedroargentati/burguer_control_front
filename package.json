@@ -1,27 +1,275 @@
 {
-  "name": "burguer-control-front",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "dev": "next dev --turbopack",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
-  },
-  "dependencies": {
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "next": "15.1.6"
-  },
-  "devDependencies": {
-    "typescript": "^5",
-    "@types/node": "^20",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
-    "postcss": "^8",
-    "tailwindcss": "^3.4.1",
-    "eslint": "^9",
-    "eslint-config-next": "15.1.6",
-    "@eslint/eslintrc": "^3"
-  }
+	"name": "burguer-control-front",
+	"version": "0.1.0",
+	"private": true,
+	"scripts": {
+		"dev": "next dev --turbopack",
+		"build": "next build",
+		"start": "next start",
+		"lint": "next lint",
+		"format": "prettier --write ."
+	},
+	"dependencies": {
+		"next": "15.1.2",
+		"react": "^19.0.0",
+		"react-dom": "^19.0.0"
+	},
+	"devDependencies": {
+		"@iconify/react": "^5.1.0",
+		"@tailwindcss/forms": "^0.5.9",
+		"@types/node": "^20.14.8",
+		"@types/react": "^19.0.1",
+		"@types/react-dom": "^19.0.2",
+		"@typescript-eslint/eslint-plugin": "^8.15.0",
+		"@typescript-eslint/parser": "^8.15.0",
+		"daisyui": "^4.7.2",
+		"eslint": "^9.15.0",
+		"eslint-config-next": "15.1.2",
+		"eslint-config-prettier": "^9.1.0",
+		"eslint-plugin-prettier": "^5.2.1",
+		"eslint-plugin-tailwindcss": "^3.17.5",
+		"postcss": "^8.4.49",
+		"prettier": "^3.3.3",
+		"prettier-plugin-tailwindcss": "^0.6.9",
+		"tailwind-variants": "^0.2.0",
+		"tailwindcss": "^3.4.17",
+		"typescript": "^5.7.2",
+		"zustand": "^5.0.2"
+	},
+	"eslintConfig": {
+		"root": true,
+		"env": {
+			"browser": true,
+			"node": true,
+			"es6": true
+		},
+		"extends": [
+			"eslint:recommended",
+			"plugin:prettier/recommended",
+			"plugin:tailwindcss/recommended",
+			"next/core-web-vitals",
+			"next/typescript"
+		],
+		"overrides": [
+			{
+				"files": [
+					"*.js",
+					"*.cjs",
+					"*.mjs"
+				],
+				"env": {
+					"node": true
+				},
+				"parserOptions": {
+					"sourceType": "module",
+					"ecmaVersion": "latest"
+				}
+			}
+		],
+		"parser": "@typescript-eslint/parser",
+		"plugins": [
+			"@typescript-eslint"
+		],
+		"rules": {
+			"indent": [
+				"error",
+				"tab",
+				{
+					"SwitchCase": 1
+				}
+			],
+			"linebreak-style": [
+				"error",
+				"windows"
+			],
+			"semi": [
+				"error",
+				"always"
+			],
+			"prefer-const": "off",
+			"no-const-assign": "error",
+			"no-var": "error",
+			"no-unused-vars": "off",
+			"no-fallthrough": "off",
+			"one-var": [
+				"error",
+				"never"
+			],
+			"no-multi-assign": "error",
+			"no-plusplus": [
+				"error",
+				{
+					"allowForLoopAfterthoughts": true
+				}
+			],
+			"no-new-object": "error",
+			"object-shorthand": "off",
+			"quote-props": [
+				"error",
+				"consistent-as-needed"
+			],
+			"no-prototype-builtins": "error",
+			"dot-notation": "error",
+			"array-callback-return": [
+				"error",
+				{
+					"allowImplicit": true,
+					"checkForEach": true
+				}
+			],
+			"prefer-template": "off",
+			"template-curly-spacing": [
+				"error",
+				"never"
+			],
+			"no-eval": "error",
+			"no-useless-escape": "error",
+			"default-param-last": "error",
+			"no-new-func": "error",
+			"brace-style": [
+				"error"
+			],
+			"space-before-blocks": [
+				"error",
+				"always"
+			],
+			"space-before-function-paren": [
+				"error",
+				{
+					"anonymous": "always",
+					"named": "never",
+					"asyncArrow": "always"
+				}
+			],
+			"no-param-reassign": "off",
+			"prefer-spread": "error",
+			"arrow-spacing": "error",
+			"arrow-parens": "error",
+			"no-confusing-arrow": [
+				"off",
+				{
+					"allowParens": false
+				}
+			],
+			"implicit-arrow-linebreak": "error",
+			"no-duplicate-imports": "error",
+			"object-curly-newline": "off",
+			"eqeqeq": "error",
+			"no-case-declarations": "error",
+			"no-unneeded-ternary": "error",
+			"no-mixed-operators": "off",
+			"space-infix-ops": "error",
+			"nonblock-statement-body-position": "error",
+			"no-else-return": "error",
+			"spaced-comment": "error",
+			"eol-last": "error",
+			"newline-per-chained-call": [
+				"error",
+				{
+					"ignoreChainWithDepth": 3
+				}
+			],
+			"no-whitespace-before-property": "error",
+			"padded-blocks": [
+				"error",
+				"never"
+			],
+			"no-multiple-empty-lines": "error",
+			"space-in-parens": "error",
+			"array-bracket-spacing": "error",
+			"object-curly-spacing": [
+				"error",
+				"always"
+			],
+			"comma-spacing": "error",
+			"computed-property-spacing": "error",
+			"func-call-spacing": "error",
+			"key-spacing": "error",
+			"no-trailing-spaces": "error",
+			"comma-style": "error",
+			"comma-dangle": [
+				"error",
+				"always-multiline"
+			],
+			"no-new-wrappers": "error",
+			"camelcase": "error",
+			"no-undef": "off",
+			"no-underscore-dangle": "off",
+			"@typescript-eslint/no-namespace": "off",
+			"@typescript-eslint/no-inferrable-types": "off",
+			"@typescript-eslint/no-explicit-any": "off",
+			"@typescript-eslint/naming-convention": [
+				"error",
+				{
+					"selector": "typeLike",
+					"format": [
+						"PascalCase"
+					]
+				},
+				{
+					"selector": "interface",
+					"format": [
+						"PascalCase"
+					],
+					"custom": {
+						"regex": "^I[A-Z]",
+						"match": true
+					}
+				},
+				{
+					"selector": "class",
+					"format": [
+						"PascalCase"
+					],
+					"suffix": [
+						"Api",
+						"Class",
+						"Handler",
+						"Service",
+						"Store",
+						"Utils"
+					]
+				},
+				{
+					"selector": "property",
+					"format": [
+						"camelCase"
+					],
+					"modifiers": [
+						"private"
+					],
+					"leadingUnderscore": "require"
+				},
+				{
+					"selector": "variable",
+					"modifiers": [
+						"destructured"
+					],
+					"format": null
+				}
+			]
+		}
+	},
+	"prettier": {
+		"printWidth": 120,
+		"tabWidth": 4,
+		"useTabs": true,
+		"semi": true,
+		"singleQuote": true,
+		"jsxSingleQuote": true,
+		"quoteProps": "consistent",
+		"trailingComma": "all",
+		"bracketSpacing": true,
+		"bracketSameLine": false,
+		"arrowParens": "always",
+		"htmlWhitespaceSensitivity": "css",
+		"proseWrap": "preserve",
+		"singleAttributePerLine": false,
+		"endOfLine": "crlf",
+		"plugins": [
+			"prettier-plugin-tailwindcss"
+		],
+		"tailwindConfig": "./tailwind.config.mjs"
+	}
 }
+
