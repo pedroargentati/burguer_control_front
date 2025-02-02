@@ -4,11 +4,13 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { EventsApi } from '@core/api/orders/events.api';
 import { Event } from '@core/api/interfaces/event.model';
+import toast, { Toaster } from 'react-hot-toast';
+import { Utils } from '../../utils/utils';
 
 export default function NewEventPage() {
 	const router = useRouter();
 	const [name, setName] = useState('');
-	const [eventDate, setEventDate] = useState('');
+	const [eventDate, setEventDate] = useState(Utils.getISODateFromDate(new Date()));
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState('');
 
@@ -20,9 +22,11 @@ export default function NewEventPage() {
 		try {
 			await EventsApi.createEvent({ name, eventDate } as Event);
 
-			router.push('/events');
+			setTimeout(() => router.push('/events'), 1000);
+			toast.success('Evento criado com sucesso!', { duration: 5000 });
 		} catch (err) {
 			console.log(err);
+			toast.error('Erro ao criar evento. Verifique os dados e tente novamente.', { duration: 5000 });
 			setError('Não foi possível criar o evento.');
 		} finally {
 			setLoading(false);
@@ -31,6 +35,7 @@ export default function NewEventPage() {
 
 	return (
 		<div className='mx-auto mt-10 max-w-lg rounded-2xl bg-white p-6 shadow-lg'>
+			<Toaster position="top-right" reverseOrder={false} />
 			<h1 className='mb-6 text-3xl font-bold text-gray-800'>Criar Novo Evento</h1>
 
 			<form onSubmit={handleCreateEvent} className='space-y-4'>
@@ -38,10 +43,11 @@ export default function NewEventPage() {
 					<label className='block font-medium text-gray-700'>Nome do Evento</label>
 					<input
 						type='text'
-						className='input input-bordered w-full'
+						className='input input-bordered w-full bg-gray-700'
 						value={name}
 						onChange={(e) => setName(e.target.value)}
 						required
+						placeholder='Informe o nome do evento...'
 					/>
 				</div>
 
@@ -49,7 +55,7 @@ export default function NewEventPage() {
 					<label className='block font-medium text-gray-700'>Data do Evento</label>
 					<input
 						type='date'
-						className='input input-bordered w-full'
+						className='input input-bordered w-full bg-gray-700'
 						value={eventDate}
 						onChange={(e) => setEventDate(e.target.value)}
 						required

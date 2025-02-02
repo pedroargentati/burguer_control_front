@@ -7,8 +7,12 @@ import { Utils } from '../utils/utils';
 import Link from 'next/link';
 import ConfirmModal from '../components/ConfirmModal';
 import { EventsApi } from '@core/api/orders/events.api';
+import { useRouter } from 'next/navigation';
+import toast, { Toaster } from 'react-hot-toast';
 
 export default function EventsPage() {
+	const router = useRouter();
+
 	const { events, fetchEvents } = useEventsStore();
 	const [loading, setLoading] = useState(true);
 	const [isModalOpen, setIsModalOpen] = useState(false);
@@ -32,7 +36,10 @@ export default function EventsPage() {
 			useEventsStore.setState((state) => ({
 				events: state.events.filter((event) => event.id !== eventToDelete),
 			}));
+			toast.success('Evento excluído com sucesso!', { duration: 3000 });
+
 		} catch (error) {
+			toast.error('Erro ao excluir evento. Tente novamente mais tarde.', { duration: 5000 });
 			console.error('Erro ao excluir evento:', error);
 		} finally {
 			setIsModalOpen(false);
@@ -42,6 +49,7 @@ export default function EventsPage() {
 
 	return (
 		<div className='mx-auto mt-10 max-w-3xl rounded-2xl bg-white p-6 shadow-lg'>
+			<Toaster position="top-right" reverseOrder={false} />
 			<div className='mb-6 flex items-center justify-between'>
 				<h1 className='text-3xl font-bold text-gray-800'>Eventos</h1>
 				<Link href='/events/new'>
@@ -72,7 +80,10 @@ export default function EventsPage() {
 									<td className='p-3 text-gray-800'>{event.name}</td>
 									<td className='p-3 text-gray-800'>{Utils.getFormattedDate(event.eventDate)}</td>
 									<td className='flex gap-3 p-3'>
-										<button className='text-blue-500 hover:text-blue-700'>
+										<button
+											className='text-blue-500 hover:text-blue-700'
+											onClick={() => router.push(`/events/${event.id}`)}
+										>
 											<Pencil size={18} />
 										</button>
 										<button

@@ -16,8 +16,8 @@ export class EventsApi {
 		return await CoreApi.get<Event>(`${EventsApi.BASE_URL}/${id}`);
 	}
 
-	public static async updateEvent(id: number, Events: Event): Promise<Event> {
-		return await CoreApi.put<Event>(`${EventsApi.BASE_URL}/${id}`, Events);
+	public static async updateEvent(event: Event): Promise<Event> {
+		return await CoreApi.put<Event>(`${EventsApi.BASE_URL}`, event);
 	}
 
 	public static async deleteEvent(id: number): Promise<void> {
