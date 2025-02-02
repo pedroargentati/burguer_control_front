@@ -1,5 +1,5 @@
 import { CoreApi } from "../core.api";
-import { Order, OrderList } from "../interfaces/order.model";
+import { Order, OrderList } from "../../interfaces/order.model";
 
 export class OrdersApi {
 	private static readonly BASE_URL = 'http://localhost:8080/order';

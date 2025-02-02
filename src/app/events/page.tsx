@@ -6,9 +6,9 @@ import { useEventsStore } from '../store/useEventsStore';
 import { Utils } from '../utils/utils';
 import Link from 'next/link';
 import ConfirmModal from '../components/ConfirmModal';
-import { EventsApi } from '@core/api/orders/events.api';
 import { useRouter } from 'next/navigation';
 import toast, { Toaster } from 'react-hot-toast';
+import { EventsApi } from '@core/api/events.api';
 
 export default function EventsPage() {
 	const router = useRouter();

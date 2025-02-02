@@ -2,10 +2,10 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { EventsApi } from '@core/api/orders/events.api';
-import { Event } from '@core/api/interfaces/event.model';
+import { Event } from '@core/interfaces/event.model';
 import toast, { Toaster } from 'react-hot-toast';
 import { Utils } from '../../utils/utils';
+import { EventsApi } from '@core/api/events.api';
 
 export default function NewEventPage() {
 	const router = useRouter();

@@ -1,5 +1,5 @@
-import { Order, OrderList } from '@core/api/interfaces/order.model';
-import { OrdersApi } from '@core/api/orders/orders.api';
+import { OrdersApi } from '@core/api/orders.api';
+import { Order, OrderList } from '@core/interfaces/order.model';
 import { create } from 'zustand';
 
 interface OrdersState {

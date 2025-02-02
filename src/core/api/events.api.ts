@@ -1,5 +1,6 @@
-import { CoreApi } from "../core.api";
-import { Event, EventList } from "../interfaces/event.model";
+import { Event, EventList } from "@core/interfaces/event.model";
+import { CoreApi } from "./core.api";
+
 
 export class EventsApi {
 	private static readonly BASE_URL = 'http://localhost:8080/event';

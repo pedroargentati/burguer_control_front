@@ -1,5 +1,5 @@
-import { Event, EventList } from '@core/api/interfaces/event.model';
-import { EventsApi } from '@core/api/orders/events.api';
+import { EventsApi } from '@core/api/events.api';
+import { Event, EventList } from '@core/interfaces/event.model';
 import { create } from 'zustand';
 
 interface EventsStore {
