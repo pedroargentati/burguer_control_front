@@ -1,18 +1,44 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { Plus } from 'lucide-react';
+import { Pencil, Plus, Trash } from 'lucide-react';
 import { useEventsStore } from '../store/useEventsStore';
 import { Utils } from '../utils/utils';
 import Link from 'next/link';
+import ConfirmModal from '../components/ConfirmModal';
+import { EventsApi } from '@core/api/orders/events.api';
 
 export default function EventsPage() {
 	const { events, fetchEvents } = useEventsStore();
 	const [loading, setLoading] = useState(true);
+	const [isModalOpen, setIsModalOpen] = useState(false);
+	const [eventToDelete, setEventToDelete] = useState<number | null>(null);
 
 	useEffect(() => {
 		fetchEvents().finally(() => setLoading(false));
 	}, [fetchEvents]);
+
+	const handleDelete = (eventId: number) => {
+		setEventToDelete(eventId);
+		setIsModalOpen(true);
+	};
+
+	const confirmDelete = async () => {
+		if (!eventToDelete) return;
+
+		try {
+			await EventsApi.deleteEvent(eventToDelete);
+
+			useEventsStore.setState((state) => ({
+				events: state.events.filter((event) => event.id !== eventToDelete),
+			}));
+		} catch (error) {
+			console.error('Erro ao excluir evento:', error);
+		} finally {
+			setIsModalOpen(false);
+			setEventToDelete(null);
+		}
+	};
 
 	return (
 		<div className='mx-auto mt-10 max-w-3xl rounded-2xl bg-white p-6 shadow-lg'>
@@ -37,6 +63,7 @@ export default function EventsPage() {
 							<tr className='bg-gray-200 text-gray-700'>
 								<th className='p-3 text-left'>Nome do Evento</th>
 								<th className='p-3 text-left'>Data</th>
+								<th className='p-3 text-left'>Ações</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -44,12 +71,31 @@ export default function EventsPage() {
 								<tr key={event.id} className='border-t border-gray-300 hover:bg-gray-100'>
 									<td className='p-3 text-gray-800'>{event.name}</td>
 									<td className='p-3 text-gray-800'>{Utils.getFormattedDate(event.eventDate)}</td>
+									<td className='flex gap-3 p-3'>
+										<button className='text-blue-500 hover:text-blue-700'>
+											<Pencil size={18} />
+										</button>
+										<button
+											className='text-red-500 hover:text-red-700'
+											onClick={() => handleDelete(event.id)}
+										>
+											<Trash size={18} />
+										</button>
+									</td>
 								</tr>
 							))}
 						</tbody>
 					</table>
 				</div>
 			)}
+
+			<ConfirmModal
+				isOpen={isModalOpen}
+				onClose={() => setIsModalOpen(false)}
+				onConfirm={confirmDelete}
+				title='Excluir Evento'
+				message='Tem certeza que deseja excluir este evento?'
+			/>
 		</div>
 	);
 }

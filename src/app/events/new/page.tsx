@@ -2,6 +2,8 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { EventsApi } from '@core/api/orders/events.api';
+import { Event } from '@core/api/interfaces/event.model';
 
 export default function NewEventPage() {
 	const router = useRouter();
@@ -16,15 +18,7 @@ export default function NewEventPage() {
 		setError('');
 
 		try {
-			const response = await fetch('http://localhost:8080/event', {
-				method: 'POST',
-				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify({ name, eventDate }),
-			});
-
-			if (!response.ok) {
-				throw new Error('Erro ao criar evento.');
-			}
+			await EventsApi.createEvent({ name, eventDate } as Event);
 
 			router.push('/events');
 		} catch (err) {

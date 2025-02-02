@@ -1,10 +1,6 @@
+import { Event, EventList } from '@core/api/interfaces/event.model';
+import { EventsApi } from '@core/api/orders/events.api';
 import { create } from 'zustand';
-
-interface Event {
-	id: number;
-	name: string;
-	eventDate: string;
-}
 
 interface EventsStore {
 	events: Event[];
@@ -15,10 +11,7 @@ export const useEventsStore = create<EventsStore>((set) => ({
 	events: [],
 	fetchEvents: async () => {
 		try {
-			const response = await fetch('http://localhost:8080/event');
-			if (!response.ok) throw new Error('Erro ao buscar eventos');
-
-			const data = await response.json();
+			const data: EventList = await EventsApi.getAllEventss();
 			set({ events: data.content });
 		} catch (error) {
 			console.error('Erro ao buscar eventos:', error);

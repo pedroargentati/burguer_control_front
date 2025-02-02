@@ -1,12 +1,6 @@
+import { Order, OrderList } from '@core/api/interfaces/order.model';
+import { OrdersApi } from '@core/api/orders/orders.api';
 import { create } from 'zustand';
-
-interface Order {
-	id: number;
-	personName: string;
-	eventName: string;
-	meatDoneness: string;
-	notes?: string;
-}
 
 interface OrdersState {
 	orders: Order[];
@@ -16,8 +10,7 @@ interface OrdersState {
 export const useOrdersStore = create<OrdersState>((set) => ({
 	orders: [],
 	fetchOrders: async () => {
-		const res = await fetch('http://localhost:8080/orders');
-		const data = await res.json();
-		set({ orders: data });
+		const data: OrderList = await OrdersApi.getAllOrders();
+		set({ orders: data.content });
 	},
 }));
