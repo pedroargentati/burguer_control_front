@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { Plus } from 'lucide-react';
 import { useEventsStore } from '../store/useEventsStore';
 import { Utils } from '../utils/utils';
+import Link from 'next/link';
 
 export default function EventsPage() {
 	const { events, fetchEvents } = useEventsStore();
@@ -17,10 +18,12 @@ export default function EventsPage() {
 		<div className='mx-auto mt-10 max-w-3xl rounded-2xl bg-white p-6 shadow-lg'>
 			<div className='mb-6 flex items-center justify-between'>
 				<h1 className='text-3xl font-bold text-gray-800'>Eventos</h1>
-				<button className='btn btn-primary flex items-center gap-2'>
-					<Plus size={20} />
-					Criar Evento
-				</button>
+				<Link href='/events/new'>
+					<button className='btn btn-primary flex items-center gap-2'>
+						<Plus size={20} />
+						Criar Evento
+					</button>
+				</Link>
 			</div>
 
 			{loading ? (
