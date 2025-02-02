@@ -6,7 +6,7 @@
 		"dev": "next dev --turbopack",
 		"build": "next build",
 		"start": "next start",
-		"lint": "next lint",
+		"lint": "prettier --check . && eslint .",
 		"format": "prettier --write ."
 	},
 	"dependencies": {
@@ -272,4 +272,3 @@
 		"tailwindConfig": "./tailwind.config.mjs"
 	}
 }
-
