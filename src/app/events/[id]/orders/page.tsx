@@ -6,8 +6,9 @@ import { useRouter } from 'next/navigation';
 import { OrdersApi } from '@core/api/orders.api';
 import toast, { Toaster } from 'react-hot-toast';
 import Link from 'next/link';
-import { useOrdersStore } from '../store/useOrdersStore';
-import ConfirmModal from '../components/ConfirmModal';
+import { useOrdersStore } from '../../../store/useOrdersStore';
+import ConfirmModal from '../../../components/ConfirmModal';
+
 
 export default function OrdersPage({ params }: { params: { id: string } }) {
 	const router = useRouter();
@@ -50,7 +51,7 @@ export default function OrdersPage({ params }: { params: { id: string } }) {
 			<Toaster position='top-right' reverseOrder={false} />
 			<div className='mb-6 flex items-center justify-between'>
 				<h1 className='text-3xl font-bold text-gray-800'>Pedidos do Evento</h1>
-				<Link href={`/events/${eventId}/orders/new`}>
+				<Link href={`/orders/${eventId}/new`}>
 					<button className='btn btn-primary flex items-center gap-2'>
 						<Plus size={20} />
 						Novo Pedido
@@ -68,7 +69,7 @@ export default function OrdersPage({ params }: { params: { id: string } }) {
 						<thead>
 							<tr className='bg-gray-200 text-gray-700'>
 								<th className='p-3 text-left'>Pedido</th>
-								<th className='p-3 text-left'>Quantidade</th>
+								<th className='p-3 text-left'>Anotações</th>
 								<th className='p-3 text-left'>Ações</th>
 							</tr>
 						</thead>

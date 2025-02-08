@@ -2,11 +2,11 @@
 
 import { useEffect, useState } from 'react';
 import { Pencil, Plus, Trash } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 import { useEventsStore } from '../store/useEventsStore';
 import { Utils } from '../utils/utils';
 import Link from 'next/link';
 import ConfirmModal from '../components/ConfirmModal';
-import { useRouter } from 'next/navigation';
 import toast, { Toaster } from 'react-hot-toast';
 import { EventsApi } from '@core/api/events.api';
 
@@ -32,12 +32,10 @@ export default function EventsPage() {
 
 		try {
 			await EventsApi.deleteEvent(eventToDelete);
-
 			useEventsStore.setState((state) => ({
 				events: state.events.filter((event) => event.id !== eventToDelete),
 			}));
 			toast.success('Evento excluído com sucesso!', { duration: 3000 });
-
 		} catch (error) {
 			toast.error('Erro ao excluir evento. Tente novamente mais tarde.', { duration: 5000 });
 			console.error('Erro ao excluir evento:', error);
@@ -77,7 +75,11 @@ export default function EventsPage() {
 						<tbody>
 							{events.map((event) => (
 								<tr key={event.id} className='border-t border-gray-300 hover:bg-gray-100'>
-									<td className='p-3 text-gray-800'>{event.name}</td>
+									<td className='p-3 text-gray-800'>
+										<Link href={`/events/${event.id}/orders`} className='text-blue-500 hover:underline'>
+											{event.name}
+										</Link>
+									</td>
 									<td className='p-3 text-gray-800'>{Utils.getFormattedDate(event.eventDate)}</td>
 									<td className='flex gap-3 p-3'>
 										<button

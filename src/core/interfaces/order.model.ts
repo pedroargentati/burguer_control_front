@@ -2,6 +2,7 @@ import { Page } from "./page.mode";
 
 export interface Order {
 	id: number;
+	eventId?: number;
 	personName: string;
 	eventName: string;
 	meatDoneness: string;
